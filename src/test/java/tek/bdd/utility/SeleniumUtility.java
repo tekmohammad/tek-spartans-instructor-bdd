@@ -19,7 +19,6 @@ public class SeleniumUtility extends BaseSetup {
         return getWait().until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
-    //create a method to click on a given Locator
     public void clickOnElement(By locator) {
         getWait().until(ExpectedConditions.elementToBeClickable(locator))
                 .click();

@@ -28,6 +28,13 @@ public class SecurityTestSteps extends SeleniumUtility {
         clickOnElement(SignInPage.LOGIN_BUTTON);
     }
 
+    @When("user enter {string} and {string} and click on login")
+    public void userEnterUsernameAndPassword(String username, String password) {
+       sendText(SignInPage.EMAIL_INPUT, username);
+       sendText(SignInPage.PASSWORD_INPUT, password);
+       clickOnElement(SignInPage.LOGIN_BUTTON);
+    }
+
     @Then("user should be able to see account link")
     public void user_should_be_able_to_see_account_link() {
         boolean isAccountDisplayed = isElementDisplayed(HomePage.ACCOUNT_LINK);

@@ -40,4 +40,11 @@ public class SecurityTestSteps extends SeleniumUtility {
         boolean isAccountDisplayed = isElementDisplayed(HomePage.ACCOUNT_LINK);
         Assert.assertTrue(isAccountDisplayed);
     }
+
+    @Then("user should see error {string}")
+    public void userShouldSeeError(String expectedErrorMessage) {
+       String actualErrorMessage = getElementText(SignInPage.ERROR_MESSAGE);
+
+       Assert.assertEquals(expectedErrorMessage, actualErrorMessage);
+    }
 }

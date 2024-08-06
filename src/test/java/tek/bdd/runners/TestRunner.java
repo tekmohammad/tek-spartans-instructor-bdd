@@ -6,9 +6,10 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        features = "classpath:features/CreateNewAccount.feature", // Directory for Feature file
+        features = "classpath:features", // Directory for Feature file
         glue = "tek.bdd.steps", //Package for all the steps
-        dryRun = false //set to true to scan feature for unimplemented steps
+        dryRun = false, //set to true to scan feature for unimplemented steps
+        tags = "@Smoke and @UserStory1"
 )
 public class TestRunner {
 }

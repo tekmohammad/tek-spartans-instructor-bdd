@@ -46,3 +46,12 @@ Feature: Create new account functionality
     When user click on "Sign Up" button
     Then validate user is in account page
     Then validate email address in account page match
+
+    @ValidateFieldError
+  Scenario: Validate error on all field when no data entered
+    When user click on "Sign Up" button
+    Then validate field error messages
+      | Name is a required field             |
+      | Email is a required field            |
+      | Password is a required field         |
+      | Confirm Password is a required field |

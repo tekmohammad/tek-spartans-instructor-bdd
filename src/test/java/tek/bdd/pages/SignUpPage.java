@@ -12,6 +12,6 @@ public class SignUpPage {
 
     public static final By CONFIRM_PASSWORD = By.name("confirmPassword");
 
-
+    public static final By ERROR_MESSAGE = By.className("error");
 
 }

@@ -78,4 +78,39 @@ public class CreateNewAccountSteps extends SeleniumUtility {
         sendText(SignUpPage.PASSWORD_INPUT, password);
         sendText(SignUpPage.CONFIRM_PASSWORD, password);
     }
+
+    @When("user enter new account as list of list")
+    public void user_enter_new_account_as_list_of_list(DataTable dataTable) {
+        //convert data table to List of List
+        List<List<String>> data = dataTable.asLists();
+        String name = data.get(0).get(0);
+        String email = data.get(0).get(1);
+        String password = data.get(0).get(2);
+
+        emailToUse = email.equalsIgnoreCase("random")
+                ? RandomGenerator.generateRandomEmail() : email;
+
+        sendText(SignUpPage.NAME_INPUT, name);
+        sendText(SignUpPage.EMAIL_INPUT, emailToUse);
+        sendText(SignUpPage.PASSWORD_INPUT, password);
+        sendText(SignUpPage.CONFIRM_PASSWORD, password);
+    }
+
+    @When("user enter new account as list of maps")
+    public void user_enter_new_account_as_list_of_maps(DataTable dataTable) {
+        //Converting data table to list of Maps
+        List<Map<String, String>> data= dataTable.asMaps();
+
+        String email = data.get(0).get("email");
+        String name = data.get(0).get("name");
+        String password = data.get(0).get("password");
+
+        emailToUse = email.equalsIgnoreCase("random")
+                ? RandomGenerator.generateRandomEmail() : email;
+
+        sendText(SignUpPage.NAME_INPUT, name);
+        sendText(SignUpPage.EMAIL_INPUT, emailToUse);
+        sendText(SignUpPage.PASSWORD_INPUT, password);
+        sendText(SignUpPage.CONFIRM_PASSWORD, password);
+    }
 }

@@ -2,6 +2,11 @@ package tek.bdd.base;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -13,7 +18,7 @@ public abstract class BaseSetup {
 
     //Encapsulating driver instance
     private static WebDriver driver;
-    private Properties properties;
+    private final Properties properties;
 
     //Find the full path to file
     //FileInputStream to read the file
@@ -27,14 +32,36 @@ public abstract class BaseSetup {
             FileInputStream fileInputStream = new FileInputStream(file);
             properties = new Properties();
             properties.load(fileInputStream);
-        }catch (IOException ex) {
+        } catch (IOException ex) {
             throw new RuntimeException("Something wrong with Config file", ex);
         }
     }
 
     public void setupBrowser() {
-        driver = new ChromeDriver();
-       String url = properties.getProperty("ui.url");
+        //To Open Chrome browser in headless mode
+        String browserType = properties.getProperty("ui.browser");
+        boolean isHeadless = Boolean.parseBoolean(properties.getProperty("ui.browser.headless"));
+
+        if (browserType.equalsIgnoreCase("chrome")) {
+            ChromeOptions options = new ChromeOptions();
+            if (isHeadless)
+                options.addArguments("--headless");
+            driver = new ChromeDriver(options);
+        } else if (browserType.equalsIgnoreCase("edge")) {
+            EdgeOptions options = new EdgeOptions();
+            if (isHeadless) options.addArguments("--headless");
+            driver = new EdgeDriver(options);
+        } else if (browserType.equalsIgnoreCase("firefox")) {
+            FirefoxOptions options = new FirefoxOptions();
+            if (isHeadless)
+                options.addArguments("--headless");
+            driver = new FirefoxDriver();
+        } else {
+            throw new RuntimeException("Wrong browser type choose between chrome, firefox or edge");
+        }
+
+
+        String url = properties.getProperty("ui.url");
         driver.get(url);
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));

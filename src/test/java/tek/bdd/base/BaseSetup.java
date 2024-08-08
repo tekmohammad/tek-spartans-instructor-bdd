@@ -1,5 +1,7 @@
 package tek.bdd.base;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -15,7 +17,7 @@ import java.time.Duration;
 import java.util.Properties;
 
 public abstract class BaseSetup {
-
+    private static final Logger LOGGER = LogManager.getLogger(BaseSetup.class);
     //Encapsulating driver instance
     private static WebDriver driver;
     private final Properties properties;
@@ -28,11 +30,13 @@ public abstract class BaseSetup {
         try {
             String configFilePath = System.getProperty("user.dir") +
                     "/src/test/resources/configs/dev-config.properties";
+            LOGGER.info("Reading Config file " + configFilePath);
             File file = new File(configFilePath);
             FileInputStream fileInputStream = new FileInputStream(file);
             properties = new Properties();
             properties.load(fileInputStream);
         } catch (IOException ex) {
+            LOGGER.error("Error reading config file", ex);
             throw new RuntimeException("Something wrong with Config file", ex);
         }
     }
@@ -41,7 +45,7 @@ public abstract class BaseSetup {
         //To Open Chrome browser in headless mode
         String browserType = properties.getProperty("ui.browser");
         boolean isHeadless = Boolean.parseBoolean(properties.getProperty("ui.browser.headless"));
-
+        LOGGER.info("Running on browser {} and isHeadless {}", browserType, isHeadless);
         if (browserType.equalsIgnoreCase("chrome")) {
             ChromeOptions options = new ChromeOptions();
             if (isHeadless)
@@ -62,6 +66,7 @@ public abstract class BaseSetup {
 
 
         String url = properties.getProperty("ui.url");
+        LOGGER.debug("Using URL {}", url);
         driver.get(url);
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));

@@ -55,7 +55,7 @@ public abstract class BaseSetup {
             FirefoxOptions options = new FirefoxOptions();
             if (isHeadless)
                 options.addArguments("--headless");
-            driver = new FirefoxDriver();
+            driver = new FirefoxDriver(options);
         } else {
             throw new RuntimeException("Wrong browser type choose between chrome, firefox or edge");
         }

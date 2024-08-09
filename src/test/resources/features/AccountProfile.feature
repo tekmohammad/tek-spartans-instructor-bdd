@@ -9,18 +9,18 @@ Feature: Account profile feature
     Then user should be able to see account link
     Given user click on "Account" link
 
-    @UserStory5
-    Scenario: Change Name and phone number and validate
-      Then validate user is in account page
-      When user enter "Mohammad" on "Name" field
-      When user enter "2023233636" on "Phone Number" field
-      When user click on "Update" button
-      Then validate Toast Displayed
-      When wait for 5 seconds
-      Then validate account name is "Mohammad"
-      When user enter "John" on "Name" field
-      When user enter "1023022536" on "Phone Number" field
-      When user click on "Update" button
-      Then validate Toast Displayed
+  @UserStory5
+  Scenario: Change Name and phone number and validate
+    Then validate user is in account page
+    When user enter "Mohammad" on "Name" field
+    When user enter "2023233636" on "Phone Number" field
+    When user click on "Update" button
+    Then validate Toast Displayed
+    When wait for 5 seconds
+    Then validate account name is "Mohammad"
+    When user enter "John" on "Name" field
+    When user enter "1023022536" on "Phone Number" field
+    When user click on "Update" button
+    Then validate Toast Displayed
 
 

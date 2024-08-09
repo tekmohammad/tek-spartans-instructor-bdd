@@ -28,21 +28,26 @@ public class SeleniumUtility extends BaseSetup {
     }
 
     public void sendText(By locator, String value) {
-        LOGGER.info("Sending text {} to locator {}", value, locator);
-        waitForVisibility(locator).sendKeys(value);
+        LOGGER.info("Clearing And Sending text {} to locator {}", value, locator);
+        WebElement element = waitForVisibility(locator);
+        element.clear();
+        element.sendKeys(value);
     }
 
     //Create method for getting the text of a locator
     public String getElementText(By locator) {
+        LOGGER.info("Get Element text {}", locator);
         return waitForVisibility(locator).getText();
     }
 
     public boolean isElementEnabled(By locator) {
+        LOGGER.info("Checking element is Enabled {}", locator);
         return waitForVisibility(locator)
                 .isEnabled();
     }
 
     public boolean isElementDisplayed(By locator) {
+        LOGGER.info("Checking element is Displayed {}", locator);
         return waitForVisibility(locator)
                 .isDisplayed();
     }
